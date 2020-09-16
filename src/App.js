@@ -1,26 +1,85 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+//Material-ui
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Landingpage from "./components/Landingpage/Landingpage";
+//Components
+import Navbar from "./components/Navbar";
+import Home from "./components/Home/Home";
 
-function App() {
+const API_KEY = "fda72843df3de15045ec06fe96643f86";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#00acc1",
+      contrastText: "#ffffff",
+    },
+    secondary: {
+      main: "#1e2129",
+      contrastText: "#e9ecef",
+    },
+  },
+});
+
+const App = () => {
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [tvSeries, setTvSeries] = useState([]);
+  const [topFive, setTopFive] = useState([]);
+
+  const getPopularMovies = async () => {
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1
+    `);
+    setPopularMovies(res.data.results);
+    setTopFive(res.data.results.slice(0, 5));
+  };
+
+  const getTopRatedMovies = async () => {
+    const res = await axios.get(`
+    https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`);
+    setTopRatedMovies(res.data.results);
+  };
+
+  const getTvSeries = async () => {
+    const res = await axios.get(
+      `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`
+    );
+    setTvSeries(res.data.results);
+  };
+
+  useEffect(() => {
+    getPopularMovies();
+    getTopRatedMovies();
+    getTvSeries();
+    // eslint-disable-next-line
+  }, []);
+  console.log(tvSeries);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path="/" component={Landingpage} exact />
+          <Route
+            path="/home"
+            render={() => (
+              <Home
+                popularMovies={popularMovies}
+                topFive={topFive}
+                topRatedMovies={topRatedMovies}
+                tvSeries={tvSeries}
+              />
+            )}
+            exact
+          />
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
