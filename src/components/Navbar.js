@@ -1,12 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 //Material-ui
 import {
   AppBar,
-  Button,
-  Hidden,
   InputAdornment,
-  Grid,
+  IconButton,
   TextField,
   Toolbar,
   Typography,
@@ -16,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
-    boxShadow: "none",
     color: "#e9ecef",
   },
   title: {
@@ -31,10 +28,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = ({ location, history }) => {
   const classes = useStyles();
+  const [search, setSearch] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (search) {
+      history.push(`/search/1/${search}`);
+    }
+  };
   return (
-    <AppBar className={classes.appbar} position="absolute" color="transparent">
+    <AppBar
+      style={{ boxShadow: location.pathname === "/home" && "none" }}
+      className={classes.appbar}
+      position="absolute"
+      color="transparent"
+    >
       <Toolbar>
         <Typography
           variant="h6"
@@ -44,64 +54,28 @@ const Navbar = () => {
         >
           zMovies
         </Typography>
-        <Grid container>
-          <Hidden smDown>
-            <Grid item>
-              <Button size="small" color="inherit">
-                Login
-              </Button>
-              <Button size="small" color="inherit">
-                Anime
-              </Button>
-              <Button size="small" color="inherit">
-                Requested
-              </Button>
-              <Button size="small" color="inherit">
-                Most Watched
-              </Button>
-              <Button size="small" color="inherit">
-                Release
-              </Button>
-              <Button size="small" color="inherit">
-                A-Z List
-              </Button>
-              <Button size="small" color="inherit">
-                TV-Series
-              </Button>
-              <Button size="small" color="inherit">
-                Movies
-              </Button>
-              <Button size="small" color="inherit">
-                Country
-              </Button>
-              <Button size="small" color="inherit">
-                Genry
-              </Button>
-              <Button size="small" color="inherit">
-                Home
-              </Button>
-            </Grid>
-          </Hidden>
-          <Grid item style={{ flex: 1, marginLeft: "20px" }}>
-            <TextField
-              className={classes.textInput}
-              size="small"
-              placeholder="Search movie..."
-              color="secondary"
-              fullWidth
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">
+        <form onSubmit={handleSubmit}>
+          <TextField
+            className={classes.textInput}
+            size="small"
+            placeholder="Search movie..."
+            color="secondary"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <IconButton type="submit">
                     <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-        </Grid>
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);

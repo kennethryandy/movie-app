@@ -40,8 +40,11 @@ export default makeStyles((theme) => ({
     objectFit: "cover",
     margin: "auto",
     minHeight: "100%",
-    borderRadius: 4,
     position: "relative",
+    maxHeight: 300,
+    borderRadius: 4,
+    boxShadow:
+      "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);",
   },
   play: {
     "& svg": {

@@ -13,7 +13,7 @@ const Home = ({ popularMovies, topRatedMovies, tvSeries, topFive }) => {
         navButtonsAlwaysVisible
         indicators={false}
         className={classes.carousel}
-        interval={2000}
+        interval={3000}
       >
         {topFive.map((movie) => (
           <Paper
@@ -21,7 +21,9 @@ const Home = ({ popularMovies, topRatedMovies, tvSeries, topFive }) => {
             className={classes.paper}
             key={movie.id}
             style={{
-              background: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(https://image.tmdb.org/t/p/w500${movie.poster_path}) no-repeat center center`,
+              background: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(https://image.tmdb.org/t/p/w500${
+                movie.backdrop_path || movie.poster_path
+              }) no-repeat center center`,
               backgroundSize: "100% 100%",
             }}
           >

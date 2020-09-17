@@ -4,10 +4,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //Material-ui
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Landingpage from "./components/Landingpage/Landingpage";
 //Components
+import Landingpage from "./components/Landingpage/Landingpage";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
+import SearchedMovie from "./components/SearchedMovie/SearchedMovie";
+import Movie from "./components/Movie/Movie";
 
 const API_KEY = "fda72843df3de15045ec06fe96643f86";
 
@@ -34,7 +36,7 @@ const App = () => {
     const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1
     `);
     setPopularMovies(res.data.results);
-    setTopFive(res.data.results.slice(0, 5));
+    setTopFive(res.data.results.slice(0, 8));
   };
 
   const getTopRatedMovies = async () => {
@@ -56,7 +58,6 @@ const App = () => {
     getTvSeries();
     // eslint-disable-next-line
   }, []);
-  console.log(tvSeries);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -76,6 +77,12 @@ const App = () => {
             )}
             exact
           />
+          <Route
+            path="/search/:page/:movieName"
+            component={SearchedMovie}
+            exact
+          />
+          <Route path="/:type/:id/:movieName" component={Movie} exact />
         </Switch>
       </Router>
     </ThemeProvider>
