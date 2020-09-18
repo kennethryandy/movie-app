@@ -32,7 +32,7 @@ const Movie = ({
     getMovie();
     setLoading(false);
     // eslint-disable-next-line
-  }, []);
+  }, [type, id]);
   return !loading ? (
     <>
       <div className={classes.appBarSpacer} style={{ marginBottom: 30 }} />
