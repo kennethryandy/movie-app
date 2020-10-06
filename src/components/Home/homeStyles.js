@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   carousel: {
     height: "100%",
     width: "100%",
-    minHeight: "110%",
+    minHeight: "100%",
     minWidth: "100%",
   },
   paper: {

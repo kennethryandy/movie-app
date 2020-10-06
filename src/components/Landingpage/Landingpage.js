@@ -21,10 +21,8 @@ const Landingpage = ({ history }) => {
   const classes = landingpageStyles();
   const [search, setSearch] = useState("");
   const [searchArray, setSearchArray] = useState([]);
-  const [open, setOpen] = useState(false);
 
   const handleChange = async (e) => {
-    setOpen(true);
     setSearch(e.target.value);
     const res = await searchApi(`
     https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${e.target.value}&page=1&include_adult=false`);
@@ -48,7 +46,6 @@ const Landingpage = ({ history }) => {
 
   const onLeaveFocus = () => {
     setTimeout(() => {
-      setOpen(false);
       setSearchArray([]);
     }, 300);
   };
@@ -62,6 +59,7 @@ const Landingpage = ({ history }) => {
         <TextField
           fullWidth
           variant="filled"
+          placeholder="Enter your keywords..."
           className={classes.textInput}
           InputProps={{
             endAdornment: (

@@ -52,7 +52,7 @@ export default makeStyles((theme) => ({
       [theme.breakpoints.down("sm")]: { fontSize: "4rem" },
       [theme.breakpoints.only("xs")]: { fontSize: "2.5rem" },
     },
-    "& :hover": { transform: "scale(1.1)", transition: "all,ease-in-out .2s" },
+    "&:hover": { transform: "scale(1.1)", transition: "all,ease-in-out .2s" },
     margin: "auto",
     position: "absolute",
     left: "33%",
