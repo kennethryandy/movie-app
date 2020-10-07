@@ -54,7 +54,7 @@ const Landingpage = ({ history }) => {
 
   return (
     <div className={classes.landingpage}>
-      <Typography variant="h3">Movies</Typography>
+      <Typography variant="h3">Search Movie</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth

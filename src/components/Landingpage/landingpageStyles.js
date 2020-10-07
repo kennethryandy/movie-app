@@ -17,7 +17,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: { width: "80%" },
   },
   textInput: {
-    "& input": { color: "#1e2129 " },
+    "& input": { color: "#1e2129", padding: "16px 24px 16px" },
     "& svg": { marginBottom: 10 },
     marginTop: "20px",
     backgroundColor: "#FFF",
